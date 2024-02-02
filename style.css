@@ -1,0 +1,131 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#game-container {
+  margin-bottom: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+td {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  text-align: center;
+  vertical-align: middle;
+  transition: background-color 0.3s ease;
+}
+
+.word-cell {
+  background-color: #aaffaa;
+}
+
+td.selected {
+  background-color: #ff66b2;
+}
+
+td:hover {
+  background-color: #eb7fd0;
+}
+
+#wordForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Adicionei margem ao formulário */
+}
+
+#wordInput {
+  margin-bottom: 10px;
+  padding: 5px; /* Adicionei um preenchimento ao input */
+}
+
+#checkWordBtn {
+  background-color: #ff66b2;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#checkWordBtn:hover {
+  background-color: #ff4081;
+}
+
+#congratulations-message {
+  display: none;
+  /* Adicionei alguns estilos para a mensagem de parabéns */
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#found-words-message {
+  margin-top: 10px;
+}
+
+.line {
+  position: relative;
+  width: 0px;
+  margin: auto;
+  border-right: 2px solid rgba(255, 255, 255, 0.75);
+  font-size: 16px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Adicionei um estilo para o rótulo do input */
+#wordForm label {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Estilo para mensagens de erro */
+#message {
+  color: #ff0000;
+  margin-top: 10px;
+}
+@keyframes typewriter {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.anim-typewriter {
+  animation: typewriter 4s steps(40) 1s 1 normal both;
+}
+
+.styled-button {
+  background-color: #ff66b2;
+  color: #ffffff;
+  padding: 6px 12px;
+  font-size: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.styled-button:hover {
+  background-color: #ff4081;
+}

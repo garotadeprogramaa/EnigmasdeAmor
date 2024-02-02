@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Caça-Palavras</title>
+    <link rel="icon" href="enigmas.png" type="image/png">
+</head>
+<body>
+    <div id="game-container"></div>
+    
+    <div id="messages">
+        <p id="congratulations-message" style="display: none;"></p>
+        <p id="found-words-message">Palavras encontradas: <span id="found-words"></span></p>
+    </div>
+    
+    <form id="wordForm">
+        <label for="wordInput">Encontre uma palavra:</label>
+        <input type="text" id="wordInput" required>
+        <button type="button" id="checkWordBtn">Verificar Palavras</button>
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>

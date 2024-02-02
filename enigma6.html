@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convite para Assistir um Filme</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fde4e1; /* Cor de fundo rosa */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .invitation {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #ff66b2; /* Cor rosa para o título */
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation">
+        <h1>Vale Filme</h1>
+        <form>
+            <label for="filme">Nome do Filme:</label>
+            <input type="text" id="filme" name="filme" placeholder="Digite o nome do filme" required>
+
+            <label for="email">Email da Pessoa Convidada:</label>
+            <input type="email" id="email" name="email" placeholder="Digite o email da pessoa convidada" required>
+
+            <button type="submit">Gerar Convite</button>
+        </form>
+    </div>
+</body>
+</html>

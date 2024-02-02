@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Inicial</title>
+    <link rel="stylesheet" href="inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="enigmas.png" type="image/png">
+</head>
+<body>
+    <div class="heart-container">
+        <i class="fas fa-heart heart"></i>
+    </div>
+    <div class="content-container">
+        <h2 class="no-spoiler-text">Enigmas de Namoro</h2>
+        <button onclick="redirectToIndex()">Iniciar</button>
+    </div>
+    <script>
+function redirectToIndex() {
+    console.log('redirectToIndex called');
+    window.location.href = 'index.html';
+}
+
+    </script>
+</body>
+</html>

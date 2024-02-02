@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eNigMas de namoro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fff; /* Fundo branco */
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background-color: #ff4081; /* Rosa claro para o container */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #enigma-container {
+      margin-top: 20px; /* Ajustado a margem superior */
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #ffffff; /* Rosa escuro para o texto */
+    }
+
+    #resposta {
+      padding: 10px;
+      font-size: 16px;
+      width: 200px;
+      margin-bottom: 10px;
+      border: 2px solid #ff4081; /* Rosa escuro para a borda */
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #da89a4; /* Rosa escuro para o botão */
+      color: #fff; /* Texto branco */
+      border: 2px solid #ff4081; /* Rosa escuro para a borda */
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff6f9f; /* Rosa mais claro ao passar o mouse */
+    }
+
+    #mensagem {
+      display: none;
+      color: #ff4081; /* Rosa escuro para a mensagem de sucesso */
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    #avanco-btn {
+      display: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #ff4081; /* Rosa escuro para o botão de avanço */
+      color: #fff; /* Texto branco */
+      border: 2px solid #ff4081; /* Rosa escuro para a borda do botão de avanço */
+      border-radius: 5px;
+      margin-top: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    #avanco-btn:hover {
+      background-color: #ff6f9f; /* Rosa mais claro ao passar o mouse */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="enigma-container">
+      <label for="resposta">Digite a resposta:</label>
+      <input type="text" id="resposta" placeholder="Resposta">
+      <button onclick="verificarResposta()">Verificar</button>
+      <div id="mensagem">Parabéns! Resposta correta.</div>
+      <button id="avanco-btn" onclick="proximaFase()">Avançar</button>
+    </div>
+  </div>
+
+  <script>
+    function verificarResposta() {
+      var respostaDigitada = document.getElementById('resposta').value.toLowerCase();
+      var tituloPagina = document.title.toLowerCase();
+      var mensagem = document.getElementById('mensagem');
+      var avancoBtn = document.getElementById('avanco-btn');
+
+      if (respostaDigitada === tituloPagina) {
+        mensagem.style.color = '#ff4081'; /* Rosa escuro para a mensagem de sucesso */
+        mensagem.innerHTML = 'Parabéns! Resposta correta.';
+        mensagem.style.display = 'block';
+        avancoBtn.style.display = 'block';
+      } else {
+        mensagem.style.color = '#ff4081'; /* Rosa escuro para a mensagem de erro */
+        mensagem.innerHTML = 'Resposta incorreta. Tente novamente.';
+        mensagem.style.display = 'block';
+        avancoBtn.style.display = 'none';
+      }
+    }
+
+    function proximaFase() {
+      // Aqui você pode adicionar lógica para ir para a próxima fase
+      alert('Próxima fase!');
+    }
+  </script>
+</body>
+</html>

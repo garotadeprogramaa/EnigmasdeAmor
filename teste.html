@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmas de Namoro</title>
+    <link rel="icon" type="image/png" href="enigmas.png"> <!-- Adiciona o favicon -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #game-container {
+            margin-bottom: 20px;
+        }
+
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(6, 100px);
+            gap: 10px;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #eb7fd0; /* Cor de fundo quando virada para cima */
+            border: 2px solid #ce0c9d; /* Cor da borda das cartas */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none; /* Evita que o texto seja selecionado ao clicar */
+            position: relative;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card img {
+            max-width: 100%;
+            max-height: 100%;
+            display: none; /* Inicia escondida */
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .card.flipped {
+            background-color: #ffffff; /* Cor de fundo quando virada para cima */
+        }
+
+        .card:hover {
+            transform: scale(1.05); /* Efeito de escala ao passar o mouse */
+        }
+
+        #score {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        #congratulations-message {
+            display: none;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #next-button {
+            display: none;
+            background-color: #ff66b2;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        #next-button:hover {
+            background-color: #ff4081;
+        }
+    </style>
+    <title>Memory Game</title>
+</head>
+<body>
+    <div id="game-container" class="memory-game">
+        <!-- Cards will be dynamically generated here -->
+    </div>
+
+    <div id="score">Pontuação: <span id="scoreCount">0</span></div>
+
+    <div id="congratulations-message">Cada dia nosso é como virar uma dessas cartas, sabe? Uma surpresa boa, um novo pedaço da nossa história que a gente vai descobrindo juntos. <br>
+        Que a gente continue jogando esse joguinho da vida, virando cartas e descobrindo pares que só nós entendemos. Te amo mais a cada nova carta que viramos juntos.</div>
+
+    <button id="next-button" onclick="advanceLevel()">>>></button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const cards = [
+                'eu.jpeg',
+                'eu.jpeg',
+                'skn.png',
+                'skn.png',
+                'nois.png',
+                'nois.png',
+                'astronauta.png',
+                'astronauta.png',
+                'f1.jpeg',
+                'f1.jpeg',
+                'dois.jpeg',
+                'dois.jpeg'
+            ]; 
+            const scoreCountElement = document.getElementById('scoreCount');
+            let score = 0;
+
+            const gameContainer = document.getElementById('game-container');
+            let lockBoard = false;
+            let flippedCards = [];
+
+            // Shuffle the cards
+            cards.sort(() => Math.random() - 0.5);
+
+            // Create cards dynamically
+            cards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.classList.add('card');
+                cardElement.dataset.card = card;
+                cardElement.dataset.index = index;
+
+                const cardImage = document.createElement('img');
+                cardImage.src = card;
+                cardImage.alt = 'Card';
+
+                cardElement.appendChild(cardImage);
+                cardElement.addEventListener('click', flipCard);
+                gameContainer.appendChild(cardElement);
+            });
+
+            function flipCard() {
+                if (lockBoard || this.classList.contains('flipped')) return;
+                
+                this.classList.add('flipped');
+                this.querySelector('img').style.display = 'block'; // Revela a imagem
+
+                flippedCards.push(this);
+
+                if (flippedCards.length === 2) {
+                    lockBoard = true; // Impede virar mais cartas durante a verificação
+                    setTimeout(checkForMatch, 1000);
+                }
+            }
+
+            function checkForMatch() {
+                const [firstCard, secondCard] = flippedCards;
+
+                if (firstCard.dataset.card === secondCard.dataset.card) {
+                    score++;
+                    scoreCountElement.textContent = score;
+                    flippedCards = [];
+
+                    if (score === cards.length / 2) {
+                        document.getElementById('congratulations-message').style.display = 'block';
+                        document.getElementById('next-button').style.display = 'block';
+                    } else {
+                        lockBoard = false; // Permite virar novas cartas
+                    }
+                } else {
+                    setTimeout(() => {
+                        flippedCards.forEach(card => {
+                            card.classList.remove('flipped');
+                            card.querySelector('img').style.display = 'none'; // Esconde a imagem
+                        });
+                        flippedCards = [];
+                        lockBoard = false; // Permite virar novas cartas
+                    }, 1000);
+                }
+            }
+
+            window.advanceLevel = function () {
+                window.location.href = 'enigmafinal.html';
+            };
+        });
+    </script>
+</body>
+</html>
