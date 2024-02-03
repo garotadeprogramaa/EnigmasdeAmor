@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmas de Namoro</title>
+    <link rel="icon" type="image/png" href="enigmas.png">
+    <style>
+        body {
+            background-color: #fff;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            text-align: center;
+            padding: 20px;
+            background-color: #ff4081;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        #image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        #message {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #emoji {
+            font-size: 50px;
+            margin-bottom: 20px;
+            animation: rotate 2s infinite linear;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #button {
+            background-color: #fff;
+            color: #ff4081;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        #button:hover {
+            background-color: #ff4081;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <img id="image" src="https://img.myloview.com.br/fotomurais/gato-engracado-que-entrega-um-grande-pacote-isolado-no-fundo-branco-700-94030955.jpg" alt="Imagem de Despedida">
+        <div id="message">
+            <p>Parabéns, meu amor! Você completou todos os enigmas.</p>
+            <p>Espero que tenha gostado e se divertido! Eu te amo muito.</p>
+        </div>
+        <div id="emoji">❤️</div>
+        <button id="button" onclick="redirectToHomePage()">Ir para a Página Inicial</button>
+    </div>
+
+    <script>
+        function redirectToHomePage() {
+            window.location.href = "inicio.html";
+        }
+    </script>
+</body>
+</html>

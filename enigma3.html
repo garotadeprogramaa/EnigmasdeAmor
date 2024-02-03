@@ -1,168 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enigmas de Namoro</title>
   <link rel="icon" href="enigmas.png" type="image/png">
+
+  
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f0f0;
+      font-family: 'Playfair Display', serif;
+      background-color: #f4f4f4;
+      margin: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
     }
 
-    #clock {
-      width: 200px;
-      height: 200px;
-      border: 2px solid #333;
-      border-radius: 50%;
-      position: relative;
+    .container {
+      text-align: center;
+      background-color: #ffd0fb;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      font-family: 'Quicksand', sans-serif;
     }
 
-    .hand {
-      position: absolute;
-      transform-origin: 50% 100%;
-      background-color: #333;
-      transition: transform 0.5s cubic-bezier(0.4, 2.5, 0.4, 1);
+    p {
+      color: #ff69b4;
+      margin-bottom: 20px;
     }
 
-    #hourHand {
-      height: 40px;
-      width: 4px;
-      top: 30%;
-      left: 48%;
-    }
-
-    #minuteHand {
-      height: 60px;
-      width: 4px;
-      top: 20%;
-      left: 48%;
-    }
-
-    #secondHand {
+    textarea {
+      width: 100%;
       height: 80px;
-      width: 2px;
-      top: 10%;
-      left: 49%;
-      background-color: #ff4081;
+      margin: 10px 0;
+      padding: 10px;
+      box-sizing: border-box;
     }
 
-    #enigma {
-      margin-top: 20px;
-    }
-
-    #userMinute {
-      margin-bottom: 10px;
-      padding: 5px;
-    }
-
-    #checkTimeBtn {
-      background-color: #ff66b2;
-      color: #ffffff;
+    button {
+      background-color: #ff69b4;
+      color: #fff;
       padding: 10px 20px;
-      font-size: 16px;
       border: none;
-      border-radius: 5px;
+      border-radius: 4px;
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
 
-    #checkTimeBtn:hover {
-      background-color: #ff4081;
+    button:hover {
+      background-color: #ff4f9e;
     }
 
-    #result {
+    #mensagem {
       margin-top: 10px;
-      font-size: 18px;
+      font-weight: bold;
       color: #333;
-    }
-
-    #nextEnigmaBtn {
-      display: none;
-      margin-top: 10px;
-      background-color: #ff4081;
-      color: #ffffff;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    #nextEnigmaBtn:hover {
-      background-color: #ff4081;
     }
   </style>
 </head>
+
 <body>
+  <div class="container">
+    <h1>O que temos aqui?</h1>
+    <p>
+      1gaQcfs&po<br>
+      2Uzzs&rpol<br>
+      5poOvcêtpp<br>
+      3&kEv4póRd<br>
+      6s§sopVcxz<br>
+      7=5<br>
+      8Ccccccccc<br>
+      9áśôÊáéópá
+    </p>
+    <textarea id="codigo" placeholder="Bora, nem tá tão difícil."></textarea>
+    <button onclick="validarChave()">Verificar</button>
+    <p id="mensagem"></p>
+  </div>
 
-<h1>Tempo de Qualidade</h1>
-<div id="clock">
-  <div id="hourHand" class="hand"></div>
-  <div id="minuteHand" class="hand"></div>
-  <div id="secondHand" class="hand"></div>
-</div>
+  <script>
+    function validarChave() {
+      var chaveInserida = document.getElementById('codigo').value.trim().toUpperCase();
+      var chaveCorreta = "QUERO VOCÊ";
+      var botaoRedirecionar;
 
-<div id="enigma">
-  <label for="userMinute"></label>
-  <input type="number" id="userMinute" min="0" max="59">
-  
-  <button id="checkTimeBtn" onclick="checkTime()">Verificar</button>
-  <p id="result"></p>
-  
-  <button id="nextEnigmaBtn" onclick="nextEnigma()">>>></button>
-</div>
+      if (chaveInserida === chaveCorreta) {
+        document.getElementById('mensagem').innerHTML =
+          "Todos os dias, meu desejo é mostrar para você o quanto <BR> eu te quero e o quão especial você é na minha vida. <BR> Tô conseguindo?";
 
-<script>
-  function updateClock() {
-    const now = new Date();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-
-    const minuteRotation = 360 / 60 * minutes + 360 / 60 * (seconds / 60);
-    const secondRotation = 360 / 60 * seconds;
-
-    document.getElementById('minuteHand').style.transform = `rotate(${minuteRotation}deg)`;
-    document.getElementById('secondHand').style.transform = `rotate(${secondRotation}deg)`;
-
-    setTimeout(updateClock, 1000);
-  }
-
-  function checkTime() {
-    const userMinute = document.getElementById('userMinute').value;
-
-    const now = new Date();
-    const minutes = now.getMinutes();
-
-    const resultElement = document.getElementById('result');
-    const nextEnigmaBtn = document.getElementById('nextEnigmaBtn');
-
-    if (userMinute == minutes) {
-      resultElement.textContent = 'Enigma Resolvido!';
-      nextEnigmaBtn.style.display = 'block';
-      document.getElementById('checkTimeBtn').disabled = true; // Desativa o botão após acertar
-    } else {
-      resultElement.textContent = 'Minuto incorreto. Tente novamente.';
-      nextEnigmaBtn.style.display = 'none';
+        // Cria o botão e adiciona ao DOM
+        botaoRedirecionar = document.createElement('button');
+        botaoRedirecionar.id = 'botaoRedirecionar';
+        botaoRedirecionar.textContent = '>>>';
+        botaoRedirecionar.addEventListener('click', redirecionar);
+        document.querySelector('.container').appendChild(botaoRedirecionar);
+      } else {
+        document.getElementById('mensagem').innerHTML = "Errou, amor. Tente novamente.";
+        // Remove o botão, se existir, se a chave estiver incorreta
+        botaoRedirecionar = document.getElementById('botaoRedirecionar');
+        if (botaoRedirecionar) {
+          botaoRedirecionar.parentNode.removeChild(botaoRedirecionar);
+        }
+      }
     }
-  }
 
-  function nextEnigma() {
-    // Redireciona para o arquivo enigma4.html
-    window.location.href = 'enigma4.html';
-  }
-
-  // Iniciar o relógio
-  updateClock();
-</script>
-
+    function redirecionar() {
+      window.location.href = 'enigma4.html';
+    }
+  </script>
 </body>
+
 </html>

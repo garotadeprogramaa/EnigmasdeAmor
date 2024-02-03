@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enigmas de Namoro</title>
+  <link rel="icon" href="enigmas.png" type="image/png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #clock {
+      width: 200px;
+      height: 200px;
+      border: 2px solid #333;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .hand {
+      position: absolute;
+      transform-origin: 50% 100%;
+      background-color: #333;
+      transition: transform 0.5s cubic-bezier(0.4, 2.5, 0.4, 1);
+    }
+
+    #hourHand {
+      height: 40px;
+      width: 4px;
+      top: 30%;
+      left: 48%;
+    }
+
+    #minuteHand {
+      height: 60px;
+      width: 4px;
+      top: 20%;
+      left: 48%;
+    }
+
+    #secondHand {
+      height: 80px;
+      width: 2px;
+      top: 10%;
+      left: 49%;
+      background-color: #ff4081;
+    }
+
+    #enigma {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #userMinute {
+      margin-bottom: 10px;
+      padding: 5px;
+    }
+
+    #checkTimeBtn,
+    #nextEnigmaBtn {
+      background-color: #ff66b2;
+      color: #ffffff;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    #checkTimeBtn:hover,
+    #nextEnigmaBtn:hover {
+      background-color: #ff4081;
+    }
+
+    #nextEnigmaBtn {
+      display: none;
+    }
+
+    #result {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+<h1>Apenas tic-tac</h1>
+<div id="clock">
+  <div id="hourHand" class="hand"></div>
+  <div id="minuteHand" class="hand"></div>
+  <div id="secondHand" class="hand"></div>
+</div>
+
+<div id="enigma">
+  <label for="userMinute">Um número:</label>
+  <input type="number" id="userMinute" min="0" max="59">
+  
+  <button id="checkTimeBtn" onclick="checkTime()">Verificar</button>
+  <p id="result"></p>
+  
+  <button id="nextEnigmaBtn" onclick="nextEnigma()">>>></button>
+</div>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+
+    const minuteRotation = 360 / 60 * minutes + 360 / 60 * (seconds / 60);
+    const secondRotation = 360 / 60 * seconds;
+
+    document.getElementById('minuteHand').style.transform = `rotate(${minuteRotation}deg)`;
+    document.getElementById('secondHand').style.transform = `rotate(${secondRotation}deg)`;
+
+    setTimeout(updateClock, 1000);
+  }
+
+  function checkTime() {
+    const userMinute = document.getElementById('userMinute').value;
+    const now = new Date();
+    const minutes = now.getMinutes();
+
+    const resultElement = document.getElementById('result');
+    const nextEnigmaBtn = document.getElementById('nextEnigmaBtn');
+
+    if (userMinute == minutes) {
+      resultElement.textContent = 'Estar ao seu lado é um privilégio que valorizo a cada instante. Nos momentos bons e ruins, quero compartilhar cada minuto contigo, construindo memórias que serão eternas.';
+      nextEnigmaBtn.style.display = 'block';
+      document.getElementById('checkTimeBtn').disabled = true; // Desativa o botão após acertar
+    } else {
+      resultElement.textContent = 'Aqui tá facinho, molesa, sem trabalho algum... Tente novamente';
+      nextEnigmaBtn.style.display = 'none';
+    }
+  }
+
+  function nextEnigma() {
+    // Redireciona para o arquivo enigma4.html
+    window.location.href = 'enigma3.html';
+  }
+
+  // Iniciar o relógio
+  updateClock();
+</script>
+
+</body>
+</html>

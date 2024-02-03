@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmas de Namoro</title>
+    <link rel="icon" type="image/png" href="enigmas.png">
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #FF1493; /* Cor de fundo rosa */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        img {
+            width: 200px; /* Aumentei o tamanho das imagens */
+            height: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+        img:hover {
+            transform: scale(1.1); /* Efeito de aumento ao passar o mouse */
+        }
+        #mensagem {
+            margin-top: 20px;
+            color: pink;
+        }
+        #mensagem-erro {
+            margin-top: 20px;
+            color: rgb(255, 0, 128);
+        }
+        #container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #FF69B4;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: #b63776; /* Cor mais escura ao passar o mouse */
+        }
+        #botaoAvancar {
+            display: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <img src="https://static.wixstatic.com/media/0aa8f1_ce2e880a6fea42db9c8a1f715f5837df~mv2.png/v1/fit/w_420,h_280,q_90/0aa8f1_ce2e880a6fea42db9c8a1f715f5837df~mv2.png" alt="Inatal">
+    <span>+</span>
+    <img src="https://vejario.abril.com.br/wp-content/uploads/2016/11/8333_mercadao2.jpeg?quality=70&strip=info&w=600&resize=1200,800" alt="rio de janero">
+</div>
+
+<div id="container">
+    <input type="text" id="resposta" name="resposta">
+    <button onclick="validarResposta()">Verificar</button>
+</div>
+
+<p id="mensagem"></p>
+<p id="mensagem-erro"></p>
+
+<button id="botaoAvancar" onclick="avançarParaProximaFase()">>>></button>
+
+<script>
+    function validarResposta() {
+        var respostaUsuario = document.getElementById("resposta").value;
+        var mensagem = document.getElementById("mensagem");
+        var mensagemErro = document.getElementById("mensagem-erro");
+        var botaoAvancar = document.getElementById("botaoAvancar");
+
+        if (respostaUsuario === "105") {
+            mensagem.style.color = "pink";
+            mensagem.innerHTML = "Parabéns, amor! Você passou de fase.";
+            mensagemErro.innerHTML = "";
+            botaoAvancar.style.display = "block";
+        } else {
+            mensagemErro.style.color = "pink";
+            mensagemErro.innerHTML = "Bora tentar novamente.";
+            mensagem.innerHTML = "";
+            botaoAvancar.style.display = "none";
+        }
+    }
+
+    function avançarParaProximaFase() {
+      window.location.href = 'enigma9.html'
+        
+    }
+</script>
+
+</body>
+</html>

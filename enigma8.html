@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmas de Namoro</title>
+    <link rel="icon" type="image/png" href="enigmas.png">
+    <style>
+        body {
+            background-color: #FF69B4;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #container {
+            background-color: #FFF;
+            /* Fundo branco para o container */
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #FF69B4;
+            /* Rosa médio */
+        }
+
+        p {
+            color: #FF1493;
+            /* Rosa profundo */
+        }
+
+        label {
+            color: #FF69B4;
+            /* Rosa médio */
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background-color: #FF69B4;
+            /* Rosa médio */
+            color: #FFF;
+            /* Texto branco */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #FF1493;
+            /* Rosa profundo ao passar o mouse */
+        }
+
+        #mensagemResultado {
+            margin-top: 20px;
+            color: #FF1493;
+            /* Rosa profundo */
+            font-weight: bold;
+        }
+
+        #botaoFase {
+            display: none;
+            /* Inicialmente oculto */
+        }
+    </style>
+    <script>
+        function validarTexto() {
+            var textoInserido = document.getElementById('textoInserido').value.toLowerCase();
+            var textoCorreto = 'williams';
+            var mensagemResultado = document.getElementById('mensagemResultado');
+            var botaoFase = document.getElementById('botaoFase');
+
+            if (textoInserido === textoCorreto) {
+                mensagemResultado.textContent = 'Te amo, Williams!';
+                botaoFase.style.display = 'block'; // Mostra o botão
+            } else {
+                mensagemResultado.textContent = 'Kika uma vez, e tenta dnv!';
+                botaoFase.style.display = 'none'; // Oculta o botão se o texto for incorreto
+            }
+        }
+
+        function avancarParaDDD() {
+            window.location.href = 'ddd.html';
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="container">
+        <h1>Tá quase acabando...</h1>
+        <p>Mas o que é isso?</p>
+        <p>9-444-555-555-444-2-6-7777</p>
+
+        <label for="textoInserido"></label>
+        <input type="text" id="textoInserido" placeholder="Descobriu?">
+
+        <button onclick="validarTexto()">Verificar</button>
+
+        <p id="mensagemResultado"></p>
+
+        <button id="botaoFase" onclick="avancarParaDDD()">Avançar</button>
+    </div>
+
+</body>
+
+</html>

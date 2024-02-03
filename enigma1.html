@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Enigmas de Namoro</title>
+    <link rel="icon" href="enigmas.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #game-container {
+            margin-bottom: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        td {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ccc;
+            text-align: center;
+            vertical-align: middle;
+            transition: background-color 0.3s ease;
+        }
+
+        .word-cell {
+            background-color: #aaffaa;
+        }
+
+        td.selected {
+            background-color: #ff66b2;
+        }
+
+        td:hover {
+            background-color: #eb7fd0;
+        }
+
+        #wordForm {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #wordInput {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+
+        #checkWordBtn {
+            background-color: #ff66b2;
+            color: #ffffff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #checkWordBtn:hover {
+            background-color: #ff4081;
+        }
+
+        #congratulations-message {
+            display: none;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #found-words-message {
+            margin-top: 10px;
+        }
+
+        .line {
+            position: relative;
+            width: 0px;
+            margin: auto;
+            border-right: 2px solid rgba(255, 255, 255, 0.75);
+            font-size: 16px;
+            text-align: left;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        #wordForm label {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        #message {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+
+        @keyframes typewriter {
+            from {
+                width: 0px;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .anim-typewriter {
+            animation: typewriter 4s steps(40) 1s 1 normal both;
+        }
+
+        .styled-button {
+            background-color: #ff66b2;
+            color: #ffffff;
+            padding: 6px 12px;
+            font-size: 8px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .styled-button:hover {
+            background-color: #ff4081;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vamos começar fácil...</h1>
+    <div id="game-container"></div>
+    
+    <div id="messages">
+        <p id="congratulations-message" style="display: none;"></p>
+        <p id="found-words-message">Palavras encontradas: <span id="found-words"></span></p>
+    </div>
+    
+    <form id="wordForm">
+        <label for="wordInput">Encontre uma palavra:</label>
+        <input type="text" id="wordInput" required>
+        <button type="button" id="checkWordBtn">Verificar Palavras</button>
+    </form>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const words = ['amor', 'carinho', 'saudade'];
+  let foundWords = [];
+  let allWordsFound = false;
+
+  const puzzle = [
+      ['s', 't', 'd', 'n', 'c', 'i', 'o', 'a', 'r', 'i', 'b', 'a', 'c', 'i', 'd', 'o', 'r', 'a', 'h', 'n'],
+      ['c', 'i', 'd', 'b', 'a', 'c', 'i', 'm', 't', 'a', 'n', 'c', 'i', 'a', 'r', 'o', 'r', 'a', 'h', 'n'],
+      ['v', 'i', 'i', 'j', 't', 'r', 'x', 'o', 'w', 'y', 'd', 's', 'z', 'p', 'k', 'f', 'o', 'b', 'q', 'a'],
+      ['d', 'y', 's', 'c', 'o', 'i', 'f', 'r', 'z', 's', 'h', 'j', 'v', 'x', 'g', 'r', 'n', 'e', 'k', 'b'],
+      ['n', 'o', 't', 'e', 'b', 'v', 'i', 's', 'e', 'd', 'j', 'o', 'm', 's', 'a', 'u', 'd', 'a', 'e', 'k'],
+      ['e', 'n', 'a', 'k', 'a', 'e', 'j', 'v', 'd', 'e', 's', 'b', 'n', 'c', 'a', 'r', 'i', 'n', 'h', 'o'], //carinho
+      ['s', 'i', 'n', 'n', 'c', 'i', 'o', 'a', 'r', 'i', 'b', 'a', 'c', 'i', 'd', 'o', 'r', 'a', 'h', 'n'],
+      ['d', 'a', 't', 'a', 'b', 'c', 'i', 'a', 'r', 'd', 'i', 's', 't', 'a', 'n', 'c', 'o', 'h', 'n', 'o'],
+      ['i', 'a', 't', 'a', 'b', 'c', 'i', 'a', 'r', 'd', 'i', 's', 't', 'a', 'n', 'c', 'o', 'h', 'n', 'o'],
+      ['c', 'a', 's', 's', 'p', 's', 'a', 'u', 'd', 'a', 'd', 'e', 'b', 'x', 'g', 'n', 'y', 'e', 'z', 'o']
+  ];
+
+  function createPuzzleTable() {
+      const table = document.createElement('table');
+
+      for (let i = 0; i < puzzle.length; i++) {
+          const row = document.createElement('tr');
+          for (let j = 0; j < puzzle[i].length; j++) {
+              const cell = document.createElement('td');
+              cell.textContent = puzzle[i][j];
+              cell.dataset.row = i;
+              cell.dataset.col = j;
+              row.appendChild(cell);
+          }
+          table.appendChild(row);
+      }
+
+      document.getElementById('game-container').appendChild(table);
+
+      table.addEventListener('click', handleClick);
+  }
+
+  document.getElementById('checkWordBtn').addEventListener('click', checkWords);
+
+  function handleClick(event) {
+      const clickedCell = event.target;
+
+      if (clickedCell.tagName === 'TD' && clickedCell.textContent.trim() !== '') {
+          clickedCell.classList.toggle('selected');
+      }
+  }
+
+  function checkWords() {
+      if (allWordsFound) {
+          return;
+      }
+
+      const inputWord = document.getElementById('wordInput').value.toLowerCase();
+      const foundWordIndex = foundWords.indexOf(inputWord);
+
+      if (words.includes(inputWord) && foundWordIndex === -1) {
+          foundWords.push(inputWord);
+          updateFoundWordsList();
+
+          if (foundWords.length === words.length) {
+              allWordsFound = true;
+              showCongratulationsMessage();
+          }
+      } else {
+          displayMessage('Errou. Tente outra.');
+      }
+
+      document.getElementById('wordInput').value = '';
+  }
+
+  function showCongratulationsMessage() {
+    const congratulationsMessage = document.getElementById('congratulations-message');
+    const foundWordsElement = document.getElementById('found-words');
+
+    if (foundWords.length === words.length) {
+        congratulationsMessage.innerHTML = `
+        <p> 
+        Meu Amor,
+        </p>
+        <p class="line anim-typewriter" style="font-size: 16px; color: #ff66b2;">
+        Hoje comemoramos dois meses de um capítulo que, para mim, é a história mais bela já escrita. <br> 
+        A cada dia ao seu lado, um novo parágrafo se desenha, repleto de 
+            <span style="color: #ff66b2; font-weight: bold;">amor</span>, 
+            <span style="color: #ff66b2; font-weight: bold;">carinho</span>  e 
+            <span style="color: #ff66b2; font-weight: bold;">saudade</span>,  aquecendo meu coração.
+        </p>
+
+        <button id="redirectButton" class="styled-button">>>></button>
+        `;
+
+        congratulationsMessage.style.display = 'block';
+        foundWordsElement.style.display = 'none'; // Opcional: Esconde a lista de palavras encontradas
+
+        // Adiciona um event listener ao botão
+        const redirectButton = document.getElementById('redirectButton');
+        redirectButton.addEventListener('click', redirectToAnotherFile);
+    }
+}
+
+function redirectToAnotherFile() {
+    window.location.href = 'enigma2.html';
+}
+
+
+
+
+  function displayMessage(message) {
+      const messageContainer = document.getElementById('message');
+      messageContainer.textContent = message;
+  }
+
+  function updateFoundWordsList() {
+      const foundWordsElement = document.getElementById('found-words');
+      foundWordsElement.textContent = foundWords.join(', ');
+  }
+
+  createPuzzleTable();
+});
+
+// inicio.html
+document.getElementById("iniciarBtn").addEventListener("click", function() {
+    window.location.href = "enigma2.html";
+});
+
+    </script>
+</body>
+</html>

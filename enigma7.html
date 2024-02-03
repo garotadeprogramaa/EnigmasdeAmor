@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmas de Namoro</title>
+    <link rel="icon" type="image/png" href="enigmas.png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #fde4e1; /* Cor de fundo rosa */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .invitation {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #ff66b2; /* Cor rosa para o título */
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #ff66b2; /* Cor rosa para o botão */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e55c9f; /* Cor rosa mais escura ao passar o mouse */
+        }
+
+        #keyInput {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px 0 0 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation">
+        <h1>Vale Filme</h1>
+        <form id="conviteForm">
+            <label for="filme">Nome do Filme:</label>
+            <input type="text" id="filme" name="filme" placeholder="Digite o nome do filme" required>
+
+            <button type="submit">Gerar Convite</button>
+        </form>
+    </div>
+    <div id="keyInput">
+        <label for="chave">Opa, tem mais!</label>
+        <input type="text" id="chave" name="chave" placeholder="Pergunte a chave após o filme...">
+        <button onclick="checkKey()">Verificar</button>
+    </div>
+</div>
+    <script>
+       function checkKey() {
+            const userKey = document.getElementById('chave').value;
+
+            // Check if the key is correct
+            if (userKey && userKey.toLowerCase() === 'dia03') {
+                // If the key is correct, proceed to another page or perform any action
+                alert('Amassa, meu bem.');
+                window.location.href = 'enigma8.html'; // Replace with the actual URL
+            } else {
+                alert('Após o filminnn.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('conviteForm');
+            const keyInput = document.getElementById('keyInput');
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+
+                const filme = document.getElementById('filme').value;
+
+                const whatsappLink = `https://api.whatsapp.com/send?phone=5584981189301&text=Oiiii, amor! Pra comemorar nossos 2 meses de namoro que tal a gente assistir "${filme}"? Aceita, por favor!`;
+
+                // Open the link in a new window or tab
+                const newWindow = window.open(whatsappLink, '_blank');
+
+                // Show the key input form after the invitation is sent
+                keyInput.style.display = 'block';
+
+                // Wait for the user to close the new window/tab
+                const checkWindowClosed = setInterval(() => {
+                    if (newWindow.closed) {
+                        clearInterval(checkWindowClosed);
+                    }
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -3,131 +3,127 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enigmas de Namoro</title>
+  <title>Apenas enigma</title>
   <link rel="icon" href="enigmas.png" type="image/png">
   <style>
     body {
-      margin: 0;
-      overflow: hidden;
       font-family: Arial, sans-serif;
       text-align: center;
-      background: linear-gradient(to right, red, orange);
-      animation: gradient 10s linear infinite;
-      color: #fff; /* Ajustei a cor do texto para melhor visibilidade no gradiente */
-    }
-
-    .color-container {
+      background-color: #ff4081; /* Fundo rosa */
+      margin: 0;
+      padding: 0;
       display: flex;
-      height: 20vh; /* Ajustado para 20% da altura da página */
-      transition: transform 15s ease-in-out;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
     }
 
-    .color-block {
-      flex: 1;
-      height: 100%;
-    }
-
-    #validator-container {
-      background-color: #ff4081; /* Cor rosa */
+    .container {
+      text-align: center;
+      background-color: #ff4081; /* Rosa claro para o container */
       padding: 20px;
-      border-radius: 10px;
-      margin: 50px auto;
-      max-width: 400px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
-    #feedback {
-      margin-top: 20px;
-      font-weight: bold;
+    #enigma-container {
+      margin-top: 20px; /* Ajustado a margem superior */
     }
 
-    #nextButton {
-      display: none;
-      margin-top: 10px;
-      padding: 10px 20px;
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #ffffff; /* Texto branco */
+    }
+
+    #resposta {
+      padding: 10px;
       font-size: 16px;
-      cursor: pointer;
-      background-color: #d43c8d; /* Cor rosa mais intensa */
-      color: #fff;
-      border: none;
+      width: 200px;
+      margin-bottom: 10px;
+      border: 2px solid #ffffff; /* Rosa escuro para a borda */
       border-radius: 5px;
     }
 
-    @keyframes gradient {
-      0% {
-        background: linear-gradient(to right, red, orange);
-      }
-      14.28% {
-        background: linear-gradient(to right, orange, yellow);
-      }
-      28.57% {
-        background: linear-gradient(to right, yellow, green);
-      }
-      42.86% {
-        background: linear-gradient(to right, green, blue);
-      }
-      57.14% {
-        background: linear-gradient(to right, blue, indigo);
-      }
-      71.42% {
-        background: linear-gradient(to right, indigo, violet);
-      }
-      85.71% {
-        background: linear-gradient(to right, violet, red);
-      }
-      100% {
-        background: linear-gradient(to right, red, orange);
-      }
+    button {
+      margin-top: 20px; /* Adicionado espaçamento superior */
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #da89a4; /* Rosa escuro para o botão */
+      color: #fff; /* Texto branco */
+      border: 2px solid #ff4081; /* Rosa escuro para a borda */
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff6f9f; /* Rosa mais claro ao passar o mouse */
+    }
+
+    #mensagem {
+      display: none;
+      color: #ffffff; /* Texto branco para a mensagem de sucesso */
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    #avanco-btn {
+      display: none;
+      margin-top: 20px; /* Adicionado espaçamento superior */
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #ffffff; /* Rosa escuro para o botão de avanço */
+      color: #ff4081; /* Texto branco */
+      border: 2px solid #ffffff; /* Rosa escuro para a borda do botão de avanço */
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    #avanco-btn:hover {
+      background-color: #ff6f9f; /* Rosa mais claro ao passar o mouse */
     }
   </style>
 </head>
 <body>
-  <div id="validator-container">
-    <h2>VLAVAAV</h2>
-    <input type="text" id="answerInput" placeholder="Digite aqui">
-    <button onclick="validateAnswer()">Verificar</button>
-
-    <div id="feedback"></div>
-    <button id="nextButton" onclick="nextPage()" >>>></button>
-  </div>
-
-  <div class="color-container">
-    <div class="color-block red"></div>
-    <div class="color-block orange"></div>
-    <div class="color-block yellow"></div>
-    <div class="color-block green"></div>
-    <div class="color-block blue"></div>
-    <div class="color-block indigo"></div>
-    <div class="color-block violet"></div>
+ 
+  <div class="container">
+    <div id="enigma-container">
+      <label for="resposta">É bom olhar por aí...</label>
+      <input type="text" id="resposta" placeholder="Resposta">
+      <button onclick="verificarResposta()">Verificar</button>
+      <div id="mensagem">Parabéns, meu amor! Resposta correta.</div>
+      <button id="avanco-btn" onclick="proximaFase()">>>></button>
+    </div>
   </div>
 
   <script>
-    let correctWords = ["vermelha", "laranja", "amarela", "verde", "azul", "anil", "violeta"];
-    let userAnswers = [];
-    let correctCount = 0;
+    function verificarResposta() {
+      var respostaDigitada = document.getElementById('resposta').value.toLowerCase();
+      var tituloPagina = document.title.toLowerCase();
+      var mensagem = document.getElementById('mensagem');
+      var avancoBtn = document.getElementById('avanco-btn');
 
-    function validateAnswer() {
-      const userInput = document.getElementById('answerInput').value.toLowerCase();
-      
-      if (correctWords.includes(userInput)) {
-        userAnswers.push(userInput);
-        correctCount++;
-
-        document.getElementById('feedback').innerHTML = `Resposta correta! Pontuação: ${correctCount}/7`;
-
-        if (correctCount === 7) {
-          document.getElementById('feedback').innerHTML = "Parabéns! Você acertou todas as respostas!";
-          document.getElementById('nextButton').style.display = 'block';
-        }
+      if (respostaDigitada === tituloPagina) {
+        mensagem.style.color = '#ffffff'; /* Texto branco para a mensagem de sucesso */
+        mensagem.innerHTML = 'Parabéns, meu amor! Espero que esteja gostando.';
+        mensagem.style.display = 'block';
+        avancoBtn.style.display = 'block';
       } else {
-        document.getElementById('feedback').innerHTML = "Errou, amor. Tente novamente.";
+        mensagem.style.color = '#ffffff'; /* Texto branco para a mensagem de erro */
+        mensagem.innerHTML = 'Poxa, olha mais!';
+        mensagem.style.display = 'block';
+        avancoBtn.style.display = 'none';
       }
-
-      document.getElementById('answerInput').value = '';
     }
 
-    function nextPage() {
-        window.location.href = '/projeto/index.html'
+    function proximaFase() {
+      window.location.href = 'enigma6.html';
     }
   </script>
 </body>
