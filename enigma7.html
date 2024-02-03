@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -85,18 +85,37 @@
         <input type="text" id="chave" name="chave" placeholder="Pergunte a chave após o filme...">
         <button onclick="checkKey()">Verificar</button>
     </div>
-</div>
     <script>
-       function checkKey() {
+        function checkKey() {
             const userKey = document.getElementById('chave').value;
 
             // Check if the key is correct
-            if (userKey && userKey.toLowerCase() === 'dia03') {
+            if (userKey && isValidKey(userKey)) {
                 // If the key is correct, proceed to another page or perform any action
                 alert('Amassa, meu bem.');
-                window.location.href = 'enigma8.html'; // Replace with the actual URL
+                window.location.href = 'enigma8.html'; // Substitua pela URL real
             } else {
                 alert('Após o filminnn.');
+            }
+        }
+
+        function isValidKey(key) {
+            // Adicione as chaves válidas neste array
+            const validKeys = ['dia03', 'd0i3a', 't34am0'];
+
+            // Obtenha as chaves armazenadas no armazenamento local
+            const usedKeys = JSON.parse(localStorage.getItem('usedKeys')) || [];
+
+            // Verifique se a chave já foi utilizada
+            if (usedKeys.includes(key.toLowerCase())) {
+                return false; // Chave já utilizada
+            } else if (validKeys.includes(key.toLowerCase())) {
+                // Adicione a chave às chaves utilizadas
+                usedKeys.push(key.toLowerCase());
+                localStorage.setItem('usedKeys', JSON.stringify(usedKeys));
+                return true; // Chave válida
+            } else {
+                return false; // Chave inválida
             }
         }
 

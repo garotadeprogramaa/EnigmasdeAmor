@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enigmas de Namoro</title>
+    <link rel="icon" href="enigmas.png" type="image/png">
+    <style>
+        body {
+            background-color: #ff4081; /* Rosa */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #enigma {
+            font-size: 20px;
+            margin-bottom: 20px;
+            white-space: pre-wrap; /* Adiciona espaçamento entre as palavras */
+        }
+
+        #teclado {
+            display: grid;
+            grid-template-columns: repeat(8, 50px);
+            grid-gap: 10px;
+        }
+
+        button {
+            background-color: #ff4081; /* Rosa */
+            border: 1px solid #fff;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <title>Jogo da Forca</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Jogo da Forca</h1>
+        <p id="enigma">_ _ _ _   _ _ _ _ _   _ _ _   _ _ _   _ _ _ _ _ _   _ _ _ _   _ _ _ _ _</p>
+        <div id="teclado"></div>
+        <p id="tentativas">Tentativas restantes: 2</p>
+    </div>
+    <script>
+        const palavra = "Esse enigma pode ter fim mas o nosso amor não".toLowerCase();
+        const enigmaElement = document.getElementById("enigma");
+        const tecladoElement = document.getElementById("teclado");
+        const tentativasElement = document.getElementById("tentativas");
+
+        let palavraEscondida = palavra.replace(/[a-záéíóúâêîôûãõàèìòùäëïöü]/g, "_");
+        let tentativasRestantes = 2;
+
+        enigmaElement.textContent = palavraEscondida.split("").join(" ");
+        tentativasElement.textContent = `Tentativas restantes: ${tentativasRestantes}`;
+
+        function atualizarEnigma(letra) {
+            for (let i = 0; i < palavra.length; i++) {
+                if (palavra[i] === letra) {
+                    palavraEscondida = palavraEscondida.substr(0, i) + letra + palavraEscondida.substr(i + 1);
+                }
+            }
+            enigmaElement.textContent = palavraEscondida.split("").join(" ");
+        }
+
+        function verificarVitoria() {
+            if (!palavraEscondida.includes("_")) {
+                window.location.href = "fim.html";
+            }
+        }
+
+        function verificarDerrota() {
+            if (tentativasRestantes === 0) {
+                window.location.href = "enigma7.html";
+            }
+        }
+
+        function criarTeclado() {
+            for (let letra of "abcdefghijklmnopqrstuvwxyzáéíóúâêîôûãõàèìòùäëïöü") {
+                const button = document.createElement("button");
+                button.textContent = letra;
+                button.addEventListener("click", function () {
+                    if (palavra.includes(letra)) {
+                        atualizarEnigma(letra);
+                        verificarVitoria();
+                    } else {
+                        tentativasRestantes--;
+                        tentativasElement.textContent = `Tentativas restantes: ${tentativasRestantes}`;
+                        verificarDerrota();
+                    }
+                });
+                tecladoElement.appendChild(button);
+            }
+        }
+
+        criarTeclado();
+
+        history.replaceState(null, document.title, location.href);
+        window.addEventListener('popstate', function () {
+        history.replaceState(null, document.title, location.href);
+    });
+
+
+</script>
+
+</body>
+</html>

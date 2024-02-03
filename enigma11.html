@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <title>Enigmas de Namoro</title>
+    <link rel="icon" type="image/png" href="enigmas.png">
+
+    <style>
+        body {
+            background-color:#ff69b4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #imageContainer {
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        #validatorContainer {
+            margin-top: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        #responseInput {
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #8d1350;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        #responseInput:focus {
+            border-color: #ee7cb5;
+        }
+
+        #validateButton, #accessButton {
+            padding: 10px;
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #validateButton:hover, #accessButton:hover {
+            background-color: #ad406c;
+        }
+
+        #accessButton {
+            display: none;
+            animation: fadeIn 1s ease-out;
+        }
+
+        #errorMessage {
+            color: #ffffff;
+            margin-top: 10px;
+            display: none;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="imageContainer">
+        <img src="51.34305713003173, 3.2854849686474905.png" alt="coordenadas">
+    </div>
+
+    <div id="validatorContainer">
+        <label for="responseInput">Digite: </label>
+        <input type="text" id="responseInput">
+        <button id="validateButton" onclick="validateResponse()">Validar</button>
+        <button id="accessButton" onclick="grantAccess()">>>></button>
+        <p id="errorMessage">Pensa mais um pouco, amor!</p>
+    </div>
+
+    <script>
+        function validateResponse() {
+            var userInput = document.getElementById('responseInput').value;
+            var errorMessage = document.getElementById('errorMessage');
+            if (userInput === 'I Love You') {
+                document.getElementById('accessButton').style.display = 'block';
+                errorMessage.style.display = 'none';
+            } else {
+                errorMessage.style.display = 'block';
+            }
+        }
+
+        function grantAccess() {
+            window.location.href = 'enigma12.html';
+        }
+    </script>
+
+</body>
+</html>

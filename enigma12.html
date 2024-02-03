@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texto + Texto</title>
+    <link rel="icon" href="enigmas.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .color-block {
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        #color1 {
+            background-color: #504bb3;
+        }
+
+        #color2 {
+            background-color: #ff3737;
+        }
+
+        #text1 {
+            color: #00fff2; 
+        }
+
+        #text2 {
+            color: #ffff00; 
+        }
+        #text3 {
+            color: #2bff00; 
+        }
+
+        #text4 {
+            color: #1a553a; 
+        }
+
+        #validator {
+            text-align: center;
+            padding: 10px;
+            background-color: #f0f0f0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        input {
+            padding: 5px;
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+        function validateColor() {
+            var userInput = document.getElementById("userInput").value;
+            var successColor = "#b4ffab";
+
+            if (userInput === successColor) {
+                alert("Parabéns! Você passou de fase!");
+
+                window.location.href = "enigma13.html";
+            } else {
+                alert("Tururu! Tente outra vez.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="color1" class="color-block">
+        <p id="text1">Código do fundo: #504bb3</p>
+        <p id="text3">Código do Texto: #00fff2 </p>
+    </div>
+    <div id="color2" class="color-block">
+        <p id="text2">Código do fundo: #ff3737</p>
+        <p id="text4">Código do Texto: #ffff00 </p>
+    </div>
+    <div id="validator">
+        <label for="userInput">Tá pronto o sorvetinho: </label>
+        <input type="text" id="userInput">
+        <button onclick="validateColor()">Validar</button>
+    </div>
+</body>
+</html>
